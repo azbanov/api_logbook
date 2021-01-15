@@ -26,6 +26,11 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Configures Guardian Authentication
+config :api_logbook, ApiLogbookWeb.Auth.Guardian,
+  issuer: "api_logbook",
+  secret_key: "0T56jiCDvRgE3oBgUOzcD9wSktJkGktGYFI2tMhQEB36OkbM8MjyW1ImNFnFalVH"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

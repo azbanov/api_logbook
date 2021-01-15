@@ -5,8 +5,20 @@ defmodule ApiLogbookWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug ApiLogbookWeb.Auth.Pipeline
+  end
+
   scope "/api", ApiLogbookWeb do
     pipe_through :api
+
+    post "/users/signup", UserController, :create
+    post "/users/signin", UserController, :signin
+  end
+
+  scope "/api", ApiLogbookWeb do
+    pipe_through [:api, :auth]
+    # rest of endpoint should be here
   end
 
   # Enables LiveDashboard only for development
