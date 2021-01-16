@@ -3,6 +3,7 @@ defmodule ApiLogbook.Accounts.Car do
   import Ecto.Changeset
 
   alias ApiLogbook.Accounts.User
+  alias ApiLogbook.Trips.Trip
 
   schema "cars" do
     field :category, :string
@@ -11,6 +12,7 @@ defmodule ApiLogbook.Accounts.Car do
     field :objectId, :string
     field :year, :integer
     belongs_to :user, User
+    has_many :trips, Trip
 
     timestamps()
   end
