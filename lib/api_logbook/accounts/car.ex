@@ -20,7 +20,7 @@ defmodule ApiLogbook.Accounts.Car do
   @doc false
   def changeset(car, attrs) do
     car
-    |> cast(attrs, [:objectId, :manufacturer, :model, :category, :year])
-    |> validate_required([:objectId, :manufacturer, :model, :category, :year])
+    |> cast(attrs, [:objectId, :manufacturer, :model, :category, :year, :user_id])
+    |> validate_required([:objectId, :manufacturer, :model, :category, :year, :user_id])
   end
 end

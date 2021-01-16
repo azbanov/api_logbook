@@ -1,7 +1,11 @@
 defmodule ApiLogbookWeb.CarView do
   use ApiLogbookWeb, :view
 
-  alias ApiLogbookWeb.TripView
+  alias ApiLogbookWeb.{CarView, TripView}
+
+  def render("show.json", %{car: car}) do
+    %{data: render_one(car, CarView, "car.json")}
+  end
 
   def render("car.json", %{car: car}) do
     %{

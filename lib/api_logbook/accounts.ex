@@ -125,7 +125,9 @@ defmodule ApiLogbook.Accounts do
 
   """
   def list_cars do
-    Repo.all(Car)
+    Car
+    |> Repo.all()
+    |> Repo.preload(:trips)
   end
 
   @doc """
@@ -142,7 +144,12 @@ defmodule ApiLogbook.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_car!(id), do: Repo.get!(Car, id)
+  def get_car!(id) do
+    IO.inspect id
+    Car
+    |> Repo.get!(id)
+    |> Repo.preload(:trips)
+  end
 
   @doc """
   Creates a car.

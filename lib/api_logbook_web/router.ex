@@ -21,7 +21,9 @@ defmodule ApiLogbookWeb.Router do
 
     resources "/users", UserController, except: [:new, :edit, :create]
 
-    resources "/trips", TripController, except: [:new, :edit]
+    resources "/cars", CarController, only: [:create, :delete, :show] do
+      resources "/trips", TripController, except: [:new, :edit]
+    end
   end
 
   # Enables LiveDashboard only for development

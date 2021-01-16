@@ -1,14 +1,14 @@
 defmodule ApiLogbookWeb.UserView do
   use ApiLogbookWeb, :view
 
-  alias ApiLogbookWeb.CarView
+  alias ApiLogbookWeb.{CarView, UserView}
 
   def render("index.json", %{users: users}) do
-    %{data: render_many(users, ApiLogbookWeb.UserView, "user.json")}
+    %{data: render_many(users, UserView, "user.json")}
   end
 
   def render("show.json", %{user: user}) do
-    %{data: render_one(user, ApiLogbookWeb.UserView, "user.json")}
+    %{data: render_one(user, UserView, "user.json")}
   end
 
   def render("user.json", %{user: user}) do
@@ -23,7 +23,7 @@ defmodule ApiLogbookWeb.UserView do
 
   def render("token.json", %{user: user, token: token}) do
     %{
-      email: user.email,
+      id: user.id,
       token: token
     }
   end

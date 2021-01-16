@@ -6,16 +6,15 @@ defmodule ApiLogbookWeb.TripController do
 
   action_fallback ApiLogbookWeb.FallbackController
 
-  def index(conn, _params) do
-    trips = Trips.list_trips()
+  def index(conn, %{"car_id" => car_id}) do
+    trips = Trips.list_trips(car_id)
     render(conn, "index.json", trips: trips)
   end
 
   def create(conn, %{"trip" => trip_params}) do
-    with {:ok, %Trip{} = trip} <- Trips.create_trip(trip_params) do
+    with {:ok, %Trip{} = trip} <- Trips.create_trip(conn.path_params["car_id"], trip_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.trip_path(conn, :show, trip))
       |> render("show.json", trip: trip)
     end
   end
