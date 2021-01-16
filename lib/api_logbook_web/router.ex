@@ -12,13 +12,13 @@ defmodule ApiLogbookWeb.Router do
   scope "/api", ApiLogbookWeb do
     pipe_through :api
 
-    post "/users/signup", UserController, :create
-    post "/users/signin", UserController, :signin
+    post "/register", UserController, :create
+    post "/login", UserController, :signin
   end
 
   scope "/api", ApiLogbookWeb do
     pipe_through [:api, :auth]
-    # rest of endpoint should be here
+    resources "/users", UserController, except: [:new, :edit, :create]
   end
 
   # Enables LiveDashboard only for development

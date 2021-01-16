@@ -10,7 +10,7 @@ defmodule ApiLogbook.Accounts.User do
     field :name, :string
     field :password, :string
     field :virtual_password, :string, virtual: true
-    has_many :car, Car
+    has_many :cars, Car
 
     timestamps()
   end
