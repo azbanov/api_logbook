@@ -38,6 +38,23 @@ defmodule ApiLogbook.Accounts do
 
   """
   def get_user!(id) do
+    Repo.get! User, id
+  end
+
+  @doc """
+  Gets a single user with cars
+
+  Raises `Ecto.NoResultsError` if the User does not exist
+
+  ## Examples
+
+    iex< get_user_with_cars!(123)
+    %User{}
+
+    iex> get_user_with_cars!(456)
+    ** (Ecto.NoResultsError)
+  """
+  def get_user_with_cars!(id) do
     User
     |> Repo.get!(id)
     |> Repo.preload(:cars)
@@ -145,7 +162,24 @@ defmodule ApiLogbook.Accounts do
 
   """
   def get_car!(id) do
-    IO.inspect id
+    Repo.get! Car, id
+  end
+
+  @doc """
+  Gets a single car with trips.
+
+  Raises `Ecto.NoResultsError` if the Car does not exist.
+
+  ## Examples
+
+      iex> get_car!(123)
+      %Car{}
+
+      iex> get_car!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_car_with_trips!(id) do
     Car
     |> Repo.get!(id)
     |> Repo.preload(:trips)
@@ -164,9 +198,10 @@ defmodule ApiLogbook.Accounts do
 
   """
   def create_car(attrs \\ %{}) do
-    %Car{}
-    |> Car.changeset(attrs)
-    |> Repo.insert()
+    case %Car{} |> Car.changeset(attrs) |> Repo.insert do
+      {:ok, car}  -> {:ok, Repo.preload(car, :trips)}
+      {:error, %Ecto.Changeset{} = error} -> {:error, error}
+    end
   end
 
   @doc """

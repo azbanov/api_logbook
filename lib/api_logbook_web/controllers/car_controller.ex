@@ -15,6 +15,6 @@ defmodule ApiLogbookWeb.CarController do
   end
 
   def show(conn, %{"id" => id}) do
-    render conn, "show.json", Accounts.get_car!(id)
+    render conn, "show.json", %{car: Accounts.get_car!(id)}
   end
 end

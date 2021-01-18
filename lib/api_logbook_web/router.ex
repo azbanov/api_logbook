@@ -20,10 +20,8 @@ defmodule ApiLogbookWeb.Router do
     pipe_through [:api, :auth]
 
     resources "/users", UserController, except: [:new, :edit, :create]
-
-    resources "/cars", CarController, only: [:create, :delete, :show] do
-      resources "/trips", TripController, except: [:new, :edit]
-    end
+    resources "/cars", CarController, only: [:create, :delete, :show]
+    resources "/trips", TripController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development

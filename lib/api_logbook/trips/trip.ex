@@ -20,8 +20,20 @@ defmodule ApiLogbook.Trips.Trip do
 
   @doc false
   def changeset(trip, attrs) do
-    trip
-    |> cast(attrs, [:date, :place, :aim, :business, :private, :consumption, :addition_expense, :notes])
-    |> validate_required([:date, :place, :aim, :business, :private, :consumption, :addition_expense, :notes])
+
+    rest = trip
+    |> change(%{date: to_naive_time!(attrs["date"])})
+    |> cast(attrs, [:date, :place, :aim, :business, :private, :consumption, :addition_expense, :notes, :car_id])
+    # |> validate_required([:date, :place, :aim, :business, :private, :consumption, :addition_expense, :notes, :car_id])
+
+    IO.inspect rest
+  end
+
+  defp to_naive_time!(timestamp) do
+    res = timestamp
+    |> DateTime.from_unix!()
+    
+    res
+
   end
 end

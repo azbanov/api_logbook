@@ -15,6 +15,17 @@ defmodule ApiLogbookWeb.CarView do
       model: car.model,
       category: car.category,
       year: car.year,
+    }
+  end
+
+  def render("car_with_trips.json", %{car: car}) do
+    %{
+      id: car.id,
+      objectId: car.objectId,
+      manufacturer: car.manufacturer,
+      model: car.model,
+      category: car.category,
+      year: car.year,
       trips: render_many(car.trips, TripView, "trip.json")
     }
   end

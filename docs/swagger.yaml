@@ -1,0 +1,287 @@
+openapi: 3.0.0
+info:
+  title: API Phoenix LogBook
+  description: REST API for LogBook
+  version: 0.0.1
+  contact:
+    email: azik1kurbanov@gmail.com
+servers:
+  - url: http://localhost:4000/api
+    description: Local server url
+tags:
+  - name: User
+    description: Operations about user
+  - name: Car
+    description: Operations about car
+  - name: Trip
+    description: Operations about trips
+paths:
+  /login:
+    post:
+      tags:
+        - User
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: vasli@mailinator.com
+                password:
+                  type: string
+                  example: vaslijom2011
+      responses:
+        201:
+          description: Logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  token:
+                    type: string
+  /users:
+    post:
+      tags:
+        - User
+      summary: Create user
+      description: Create user with credentials
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user: 
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    lastname:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  token:
+                    type: string
+      security:
+        - BearerAuth: []
+    get:
+      tags:
+        - User
+      summary: Get all users
+      responses:
+        200:
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+      security:
+        - BearerAuth: []
+  /users/{userId}:
+    get:
+      tags:
+        - User
+      summary: Get all users
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the user to get
+      responses:
+        200:
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+      security:
+        - BearerAuth: []
+  /cars:
+    post:
+      tags:
+        - Car
+      summary: Create car
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                car:
+                  type: object
+                  properties:
+                    userId:
+                      type: integer
+                    objectId:
+                      type: integer
+                    manufacturer:
+                      type: string
+                    model:
+                      type: string
+                    category:
+                      type: string
+                    year:
+                      type: integer
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+      security:
+        - BearerAuth: []
+  /cars/{carId}:
+    get:
+      tags:
+        - Car
+      summary: Get car by ID
+      parameters:
+        - in: path
+          name: carId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the car to get
+      responses:
+        200:
+          description: A list of cars
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+      security:
+        - BearerAuth: []
+  /trips:
+    post:
+      tags:
+        - Trip
+      summary: Create trip
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                trip: 
+                  type: object
+                  properties:
+                    car_id:
+                      type: integer
+                    date:
+                      type: integer
+                    place:
+                      type: string
+                    aim:
+                      type: string
+                    business:
+                      type: integer
+                    private:
+                      type: integer
+                    consumption:
+                      type: number
+                    addition_expense:
+                      type: number
+                    notes:
+                      type: string
+      responses:
+        201:
+          description: Created
+          content:
+            appliation/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        lastname:
+          type: string
+        email:
+          type: string
+        inserted_at:
+          type: integer
+        updated_at:
+          type: integer
+    Car:
+      type: object
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+        objectId:
+          type: integer
+        manufacturer:
+          type: string
+        model:
+          type: string
+        category:
+          type: string
+        year:
+          type: integer
+    Trip:
+      type: object
+      properties:
+        id:
+          type: integer
+        car_id:
+          type: integer
+        date:
+          type: integer
+        place:
+          type: string
+        aim:
+          type: string
+        business:
+          type: integer
+        private:
+          type: integer
+        consumption:
+          type: number
+        addition_expense:
+          type: number
+        notes:
+          type: string
+        inserted_at:
+          type: integer
+        updated_at:
+          type: integer
+  

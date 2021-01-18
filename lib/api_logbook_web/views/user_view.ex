@@ -17,6 +17,17 @@ defmodule ApiLogbookWeb.UserView do
       name: user.name,
       lastname: user.lastname,
       email: user.email,
+      inserted_at: NaiveDateTime.to_string(user.inserted_at),
+      updated_at: NaiveDateTime.to_string(user.updated_at)
+    }
+  end
+
+  def render("user_and_cars.json", %{user: user}) do
+    %{
+      id: user.id,
+      name: user.name,
+      lastname: user.lastname,
+      email: user.email,
       cars: render_many(user.cars, CarView, "car.json")
     }
   end

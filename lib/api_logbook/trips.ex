@@ -5,7 +5,6 @@ defmodule ApiLogbook.Trips do
 
   import Ecto.Query, warn: false
   alias ApiLogbook.Repo
-  alias ApiLogbook.Accounts.Car
   alias ApiLogbook.Trips.Trip
 
   @doc """
@@ -50,10 +49,9 @@ defmodule ApiLogbook.Trips do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_trip(%Car{} = car, attrs \\ %{}) do
+  def create_trip(attrs \\ %{}) do
     %Trip{}
     |> Trip.changeset(attrs)
-    |> Ecto.Changeset.put_change(:car_id, car.id)
     |> Repo.insert()
   end
 
