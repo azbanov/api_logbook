@@ -45,7 +45,9 @@ defmodule ApiLogbook.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 2.1"},
       {:bcrypt_elixir, "~> 2.3"},
-      {:poison, "~> 4.0"}
+      {:poison, "~> 4.0"},
+      {:tzdata, "~> 1.0.0"},
+      {:timex, "~> 3.6"}
     ]
   end
 

@@ -17,8 +17,8 @@ defmodule ApiLogbookWeb.UserView do
       name: user.name,
       lastname: user.lastname,
       email: user.email,
-      inserted_at: NaiveDateTime.to_string(user.inserted_at),
-      updated_at: NaiveDateTime.to_string(user.updated_at)
+      inserted_at: user.inserted_at,
+      updated_at: user.updated_at
     }
   end
 

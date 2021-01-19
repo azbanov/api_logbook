@@ -15,25 +15,14 @@ defmodule ApiLogbook.Trips.Trip do
     field :private, :integer
     belongs_to :car, Car
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false
   def changeset(trip, attrs) do
-
-    rest = trip
-    |> change(%{date: to_naive_time!(attrs["date"])})
+    trip
+    |> change(%{date: Timex.parse!(attrs["date"], "{ISO:Extended:Z}")})
     |> cast(attrs, [:date, :place, :aim, :business, :private, :consumption, :addition_expense, :notes, :car_id])
-    # |> validate_required([:date, :place, :aim, :business, :private, :consumption, :addition_expense, :notes, :car_id])
-
-    IO.inspect rest
-  end
-
-  defp to_naive_time!(timestamp) do
-    res = timestamp
-    |> DateTime.from_unix!()
-    
-    res
-
+    |> validate_required([:date, :place, :aim, :business, :private, :consumption, :car_id])
   end
 end
