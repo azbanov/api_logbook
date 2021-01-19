@@ -12,7 +12,7 @@ defmodule ApiLogbook.Accounts.User do
     field :virtual_password, :string, virtual: true
     has_many :cars, Car
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

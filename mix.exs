@@ -47,7 +47,8 @@ defmodule ApiLogbook.MixProject do
       {:bcrypt_elixir, "~> 2.3"},
       {:poison, "~> 4.0"},
       {:tzdata, "~> 1.0.0"},
-      {:timex, "~> 3.6"}
+      {:timex, "~> 3.6"},
+      {:cors_plug, "~> 2.0"}
     ]
   end
 

@@ -17,7 +17,8 @@ defmodule ApiLogbookWeb.Router do
   end
 
   scope "/api", ApiLogbookWeb do
-    pipe_through [:api, :auth]
+    # pipe_through [:api, :auth]
+    pipe_through :api
 
     resources "/users", UserController, except: [:new, :edit, :create]
     resources "/cars", CarController, only: [:create, :delete, :show]

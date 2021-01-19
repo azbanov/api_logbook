@@ -7,8 +7,10 @@ defmodule ApiLogbookWeb.TripController do
   action_fallback ApiLogbookWeb.FallbackController
 
   def index(conn, %{"car_id" => car_id}) do
-    trips = Trips.list_trips(car_id)
+    with {int, _} <- Integer.parse(car_id) do
+      trips = Trips.list_trips(int)
     render(conn, "index.json", trips: trips)
+    end
   end
 
   def create(conn, %{"trip" => trip_params}) do

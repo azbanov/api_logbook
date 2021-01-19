@@ -3,7 +3,7 @@ defmodule ApiLogbookWeb.TripView do
   alias ApiLogbookWeb.TripView
 
   def render("index.json", %{trips: trips}) do
-    %{data: render_many(trips, TripView, "trip.json")}
+    %{trips: render_many(trips, TripView, "trip.json")}
   end
 
   def render("show.json", %{trip: trip}) do

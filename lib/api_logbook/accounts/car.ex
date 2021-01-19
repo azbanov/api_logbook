@@ -14,7 +14,7 @@ defmodule ApiLogbook.Accounts.Car do
     belongs_to :user, User
     has_many :trips, Trip
 
-    timestamps()
+    timestamps(type: :utc_datetime)
   end
 
   @doc false

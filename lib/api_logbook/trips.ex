@@ -17,7 +17,8 @@ defmodule ApiLogbook.Trips do
 
   """
   def list_trips(car_id) do
-    Repo.get_by!(Trip, car_id: car_id)
+    IO.inspect car_id
+    Repo.all(Trip, [car_id: car_id])
   end
 
 
