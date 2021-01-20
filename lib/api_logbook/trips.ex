@@ -17,8 +17,9 @@ defmodule ApiLogbook.Trips do
 
   """
   def list_trips(car_id) do
-    IO.inspect car_id
-    Repo.all(Trip, [car_id: car_id])
+    Trip
+    |> order_by(desc: :date)
+    |> Repo.all([car_id: car_id])
   end
 
 

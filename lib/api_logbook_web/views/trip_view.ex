@@ -7,7 +7,7 @@ defmodule ApiLogbookWeb.TripView do
   end
 
   def render("show.json", %{trip: trip}) do
-    %{data: render_one(trip, TripView, "trip.json")}
+    %{trip: render_one(trip, TripView, "trip.json")}
   end
 
   def render("trip.json", %{trip: trip}) do
